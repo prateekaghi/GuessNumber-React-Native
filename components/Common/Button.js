@@ -1,14 +1,12 @@
 import { View, Text, Pressable, StyleSheet } from "react-native";
 import React from "react";
 
-const Button = ({ children }) => {
+const Button = ({ children, onPress }) => {
   return (
     <View style={style.container}>
       <Pressable
         style={({ pressed }) => [pressed ? style.presses : ""]}
-        onPress={() => {
-          console.log("pressed");
-        }}
+        onPress={onPress}
         android_ripple={{
           color: "yellow",
           borderless: true,
