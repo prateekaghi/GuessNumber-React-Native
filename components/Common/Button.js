@@ -1,5 +1,6 @@
 import { View, Text, Pressable, StyleSheet } from "react-native";
 import React from "react";
+import Color from "../../utils/colors";
 
 const Button = ({ children, onPress }) => {
   return (
@@ -8,7 +9,7 @@ const Button = ({ children, onPress }) => {
         style={({ pressed }) => [pressed ? style.presses : ""]}
         onPress={onPress}
         android_ripple={{
-          color: "yellow",
+          color: Color.Yellow500,
           borderless: true,
         }}
       >
@@ -23,10 +24,10 @@ const style = StyleSheet.create({
     borderWidth: 1,
     marginVertical: 8,
     borderRadius: 10,
-    borderColor: "yellow",
+    borderColor: Color.Yellow500,
   },
   inputField: {
-    color: "yellow",
+    color: Color.Yellow500,
     textAlign: "center",
     fontWeight: "600",
     paddingVertical: 10,
