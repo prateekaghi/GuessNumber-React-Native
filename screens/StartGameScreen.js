@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { View, TextInput, Text, StyleSheet, Alert } from "react-native";
+import {
+  View,
+  TextInput,
+  Text,
+  StyleSheet,
+  useWindowDimensions,
+  Alert,
+} from "react-native";
 import Button from "../components/Common/Button";
 import Color from "../utils/colors";
 
@@ -18,6 +25,8 @@ const StartGameScreen = ({ onNumberConfirm }) => {
     }
     onNumberConfirm(number);
   };
+  const { width, height } = useWindowDimensions();
+  console.log(width, height);
   const resetButtonHandler = () => {
     setEnteredNumber("");
   };
