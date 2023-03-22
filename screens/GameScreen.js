@@ -1,27 +1,34 @@
 import React from "react";
-import { Alert, StyleSheet, Text, View } from "react-native";
+import { Alert, FlatList, StyleSheet, Text, View } from "react-native";
 import Button from "../components/Common/Button";
 import Title from "../components/Common/Title";
 import Color from "../utils/colors";
 import { useState, useEffect } from "react";
 import NumberContainer from "../components/Common/NumberContainer";
+import Ionicons from "@expo/vector-icons/Ionicons";
+import GuessLogItem from "../components/Common/GuessLogItem";
 
 let minBoundry = 1;
 let maxBoundry = 100;
 const generateRandomNumber = (min, max) => {
   const rndm = Math.floor(Math.random() * (max - min) + min);
+
   return rndm;
 };
 
-const GameScreen = ({ userSelectedNumber, onGameOver }) => {
+const GameScreen = ({ userSelectedNumber, onGameOver, guessRoundUpdater }) => {
   const initialNumber = generateRandomNumber(minBoundry, maxBoundry);
   const [randomNumber, setrandomNumber] = useState(initialNumber);
+  const [rounds, setrounds] = useState([]);
+  const roundsLength = rounds.length;
 
   useEffect(() => {
     if (randomNumber === userSelectedNumber) {
       onGameOver();
       (minBoundry = 1), (maxBoundry = 100);
     }
+    guessRoundUpdater();
+    setrounds((prevRounds) => [randomNumber, ...prevRounds]);
   }, [randomNumber]);
 
   const nextGuessHandler = (direction) => {
@@ -48,18 +55,28 @@ const GameScreen = ({ userSelectedNumber, onGameOver }) => {
   return (
     <View style={style.container}>
       <Title title={"Opponents Guess"} />
-      <NumberContainer>
-        {userSelectedNumber === randomNumber ? "game over" : randomNumber}
-      </NumberContainer>
+      <NumberContainer>{randomNumber}</NumberContainer>
       <View style={style.optionsContainer}>
         <Text style={style.optionsText}>Higher or Lower</Text>
         <View style={style.buttonContainer}>
           <Button onPress={nextGuessHandler.bind(this, "higher")}>
-            Higher
+            <Ionicons name="arrow-up" size={20} color={Color.Yellow500} />
           </Button>
-          <Button onPress={nextGuessHandler.bind(this, "lower")}>Lower</Button>
+          <Button onPress={nextGuessHandler.bind(this, "lower")}>
+            <Ionicons name="arrow-down" size={20} color={Color.Yellow500} />
+          </Button>
         </View>
       </View>
+      <FlatList
+        data={rounds}
+        keyExtractor={(item) => item}
+        renderItem={(itemData) => (
+          <GuessLogItem
+            guess={itemData.item}
+            round={roundsLength - itemData.index}
+          />
+        )}
+      />
     </View>
   );
 };

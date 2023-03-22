@@ -1,10 +1,11 @@
 import React from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, Text } from "react-native";
 import NumberContainer from "../components/Common/NumberContainer";
 import Button from "../components/Common/Button";
 import Color from "../utils/colors";
+import Card from "../components/Common/Card";
 
-const GameOverScreen = ({ onRestartButton }) => {
+const GameOverScreen = ({ onRestartButton, totalRound, selectedNumber }) => {
   return (
     <View style={Style.mainContainer}>
       <View style={Style.Container}>
@@ -13,6 +14,12 @@ const GameOverScreen = ({ onRestartButton }) => {
           <Button onPress={onRestartButton}>Restart</Button>
         </View>
       </View>
+      <Card>
+        <Text>Chosen Number was {selectedNumber}</Text>
+      </Card>
+      <Card>
+        <Text>Oppoenet took {totalRound} turns to guess your number </Text>
+      </Card>
     </View>
   );
 };

@@ -23,6 +23,7 @@ const StartGameScreen = ({ onNumberConfirm }) => {
   };
   return (
     <View style={style.container}>
+      <Text style={style.instructionText}>Enter A Number</Text>
       <View style={style.textInputContainer}>
         <TextInput
           style={style.numberInput}
@@ -75,6 +76,11 @@ const style = StyleSheet.create({
     justifyContent: "center",
     flexDirection: "row",
     margin: 5,
+  },
+
+  instructionText: {
+    fontSize: 36,
+    color: Color.Yellow500,
   },
 });
 export default StartGameScreen;
